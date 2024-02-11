@@ -5,7 +5,7 @@ import sys
 
 def main():
     for line in sys.stdin:
-        match = re.match(r'^\s*#', line)  # regex to match lines starting with #
+        match = re.match(r'^\s*#', line) 
         
         if match or len(line.strip().split(':')) != 5:
             continue
@@ -18,17 +18,17 @@ def main():
         
         print("==> Creating account for %s..." % username)
         cmd = "/usr/sbin/adduser --disabled-password --gecos '%s' %s" % (gecos, username)
-        os.system(cmd)  # execute command to create user
+        os.system(cmd) 
         
         print("==> Setting the password for %s..." % username)
         cmd = "/bin/echo -ne '%s\n%s' | /usr/bin/sudo /usr/bin/passwd %s" % (password, password, username)
-        os.system(cmd)  # execute command to set password
+        os.system(cmd)  
         
         for group in groups:
             if group != '-':
                 print("==> Assigning %s to the %s group..." % (username, group))
                 cmd = "/usr/sbin/adduser %s %s" % (username, group)
-                os.system(cmd)  # execute command to assign user to group
+                os.system(cmd)  
 
 if __name__ == '__main__':
     main()
